@@ -138,6 +138,11 @@ namespace DJT601_IRF_GY03
             Excel.Range elsooszlopRange = xlSheet.get_Range(GetCell(2, 1), GetCell(lastRowID - 1, 1));
             elsooszlopRange.Font.Bold = true;
             elsooszlopRange.Interior.Color = Color.Yellow;
+
+            //utolsooszlop
+            Excel.Range utolsooszlopRange = xlSheet.get_Range(GetCell(2, lastColumnID), GetCell(lastRowID - 1, lastColumnID));
+            utolsooszlopRange.Interior.Color = Color.LightGreen;
+            
         }
     }
 }
