@@ -133,6 +133,11 @@ namespace DJT601_IRF_GY03
             //SZEGÉLY
             Excel.Range szegelyRange = xlSheet.get_Range(GetCell(1, 1), GetCell(lastRowID-1, lastColumnID));
             szegelyRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick); ;
+
+            //Első oszlop
+            Excel.Range elsooszlopRange = xlSheet.get_Range(GetCell(2, 1), GetCell(lastRowID - 1, 1));
+            elsooszlopRange.Font.Bold = true;
+            elsooszlopRange.Interior.Color = Color.Yellow;
         }
     }
 }
