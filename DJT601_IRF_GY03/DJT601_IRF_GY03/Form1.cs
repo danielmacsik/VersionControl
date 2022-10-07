@@ -12,9 +12,15 @@ namespace DJT601_IRF_GY03
 {
     public partial class Form1 : Form
     {
+        List<Flat> Flats;
+        RealEstateEntities context = new RealEstateEntities();
         public Form1()
         {
             InitializeComponent();
+        }
+        private void LoadData() 
+        {
+            List<Flat> Flats = context.Flats.ToList();
         }
     }
 }
