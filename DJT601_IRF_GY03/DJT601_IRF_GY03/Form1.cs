@@ -126,6 +126,13 @@ namespace DJT601_IRF_GY03
             headerRange.RowHeight = 40;
             headerRange.Interior.Color = Color.LightBlue;
             headerRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+
+            int lastRowID = xlSheet.UsedRange.Rows.Count;
+            int lastColumnID= xlSheet.UsedRange.Columns.Count;
+
+            //SZEGÉLY
+            Excel.Range szegelyRange = xlSheet.get_Range(GetCell(1, 1), GetCell(lastRowID-1, lastColumnID));
+            szegelyRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick); ;
         }
     }
 }
