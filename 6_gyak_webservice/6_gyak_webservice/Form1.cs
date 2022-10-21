@@ -1,4 +1,5 @@
-﻿using _6_gyak_webservice.ServiceReference1;
+﻿using _6_gyak_webservice.Entities;
+using _6_gyak_webservice.ServiceReference1;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,11 +14,13 @@ namespace _6_gyak_webservice
 {
     public partial class Form1 : Form
     {
+        BindingList<RateData> Rates = new BindingList<RateData>();
         
         public Form1()
         {
             InitializeComponent();
             GetExchangeRates();
+            dataGridView1.DataSource = Rates;
         }
         private void GetExchangeRates() 
         {
