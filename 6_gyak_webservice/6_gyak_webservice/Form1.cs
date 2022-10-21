@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using System.Xml;
 
 namespace _6_gyak_webservice
@@ -23,6 +24,8 @@ namespace _6_gyak_webservice
             InitializeComponent();
             string result = GetExchangeRates();
             ProcessXML(result);
+            DisplayData();
+
             dataGridView1.DataSource = Rates;
         }
         private string GetExchangeRates() 
@@ -65,6 +68,26 @@ namespace _6_gyak_webservice
                 if (unit != 0)
                     rate.Value = value / unit;
             }
+        }
+        private void DisplayData() 
+        {
+            //6.1 ELŐTTE
+            //6.2
+            chartRateData.DataSource = Rates;
+            //6.3
+            var series = chartRateData.Series[0];
+            series.ChartType = SeriesChartType.Line; //6.4
+            series.XValueMember = "Date";
+            series.YValueMembers = "Value"; //6.5
+            series.BorderWidth = 2; //6.6a
+
+            var legend = chartRateData.Legends[0]; //6.6
+            legend.Enabled = false; //6.6b
+
+            var chartArea = chartRateData.ChartAreas[0]; //6.6
+            chartArea.AxisX.MajorGrid.Enabled = false; //6.6c
+            chartArea.AxisY.MajorGrid.Enabled = false;
+            chartArea.AxisY.IsStartedFromZero = false; //6.6d
         }
     }
 }
