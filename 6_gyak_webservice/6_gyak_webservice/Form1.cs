@@ -9,20 +9,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace _6_gyak_webservice
 {
     public partial class Form1 : Form
     {
         BindingList<RateData> Rates = new BindingList<RateData>();
+
         
         public Form1()
         {
             InitializeComponent();
-            GetExchangeRates();
+            string result = GetExchangeRates();
+            ProcessXML(result);
             dataGridView1.DataSource = Rates;
         }
-        private void GetExchangeRates() 
+        private string GetExchangeRates() 
         {
             var mnbService = new MNBArfolyamServiceSoapClient();
 
@@ -34,6 +37,34 @@ namespace _6_gyak_webservice
             };
             var response = mnbService.GetExchangeRates(request);
             var result = response.GetExchangeRatesResult;
+            return result;
+        }
+        private void ProcessXML(string result) 
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(result);
+
+            // Végigmegünk a dokumentum fő elemének gyermekein
+            foreach (XmlElement element in xml.DocumentElement)
+            {
+                // Létrehozzuk az adatsort és rögtön hozzáadjuk a listához
+                // Mivel ez egy referencia típusú változó, megtehetjük, hogy előbb adjuk a listához és csak később töltjük fel a tulajdonságait
+                var rate = new RateData();
+                Rates.Add(rate);
+
+                // Dátum
+                rate.Date = DateTime.Parse(element.GetAttribute("date"));
+
+                // Valuta
+                var childElement = (XmlElement)element.ChildNodes[0];
+                rate.Currency = childElement.GetAttribute("curr");
+
+                // Érték
+                var unit = decimal.Parse(childElement.GetAttribute("unit"));
+                var value = decimal.Parse(childElement.InnerText);
+                if (unit != 0)
+                    rate.Value = value / unit;
+            }
         }
     }
 }
