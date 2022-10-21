@@ -23,8 +23,13 @@ namespace _6_gyak_webservice
         public Form1()
         {
             InitializeComponent();
+            string res = GetCurrencies();
+            ProcessCurrencyXML(res);
+            comboBox1.DataSource = Currencies;
+            
             RefreshData();
 
+            
             dataGridView1.DataSource = Rates;
         }
         private void RefreshData() 
@@ -35,9 +40,33 @@ namespace _6_gyak_webservice
             DisplayData();
 
         }
+        private string GetCurrencies() 
+        {
+            var mnbService = new MNBArfolyamServiceSoapClient();
+
+            var request = new GetCurrenciesRequestBody();
+            var response = mnbService.GetCurrencies(request);
+            var result = response.GetCurrenciesResult;
+            return result;
+        }
+        private void ProcessCurrencyXML(string result) 
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(result);
+
+            foreach (XmlElement element in xml.DocumentElement.ChildNodes[0])
+            {
+                Currencies.Add(element.InnerText);
+
+            }
+        }
 
         private string GetExchangeRates() 
         {
+            if (comboBox1.SelectedItem ==null)
+            {
+                return null;
+            }
             var mnbService = new MNBArfolyamServiceSoapClient();
 
             var request = new GetExchangeRatesRequestBody()
