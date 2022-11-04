@@ -13,7 +13,7 @@ namespace DJT601_GY06
 {
     public partial class Form1 : Form
     {
-        private List<Toy> _balls = new List<Toy>();
+        private List<Ball> _balls = new List<Ball>();
         private BallFactory _factory;
         public BallFactory Factory
         {
@@ -40,7 +40,7 @@ namespace DJT601_GY06
             var maxPosition = 0;
             foreach (var ball in _balls)
             {
-                ball.MoveBall();
+                ball.MoveToy();
                 if (ball.Left > maxPosition)
                     maxPosition = ball.Left;
 

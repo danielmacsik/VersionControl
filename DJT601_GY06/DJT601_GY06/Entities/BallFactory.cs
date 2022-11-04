@@ -8,7 +8,7 @@ namespace DJT601_GY06.Entities
 {
     public class BallFactory
     {
-        public Toy CreateNew()
+        public Ball CreateNew()
         {
             return new Ball();
         }
