@@ -69,6 +69,10 @@ namespace DJT601_GY06
         private void btnSelectBall_Click(object sender, EventArgs e)
         {
             Factory = new BallFactory();
+            Factory = new BallFactory
+            {
+                BallColor = btnColor.BackColor
+            };
         }
         private void DisplayNext()
         {
@@ -89,7 +93,9 @@ namespace DJT601_GY06
             if (colorPicker.ShowDialog() != DialogResult.OK)
                 return;
             button.BackColor = colorPicker.Color;
-                
+
+            
+
         }
     }
 }
