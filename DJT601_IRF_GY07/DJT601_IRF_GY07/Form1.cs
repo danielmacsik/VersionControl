@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace DJT601_IRF_GY07
 {
@@ -104,9 +105,19 @@ namespace DJT601_IRF_GY07
             }
         }
 
+        private void SaveFileXML() 
+        {
+            MessageBox.Show("Talán máskor");
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             SaveFile();
+        }
+
+        private void btnSaveXML_Click(object sender, EventArgs e)
+        {
+            SaveFileXML();
         }
     }
 }

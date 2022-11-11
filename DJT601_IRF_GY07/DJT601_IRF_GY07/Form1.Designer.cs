@@ -32,6 +32,7 @@ namespace DJT601_IRF_GY07
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.btnSave = new System.Windows.Forms.Button();
+            this.btnSaveXML = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -62,11 +63,22 @@ namespace DJT601_IRF_GY07
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // btnSaveXML
+            // 
+            this.btnSaveXML.Location = new System.Drawing.Point(147, 13);
+            this.btnSaveXML.Name = "btnSaveXML";
+            this.btnSaveXML.Size = new System.Drawing.Size(127, 66);
+            this.btnSaveXML.TabIndex = 3;
+            this.btnSaveXML.Text = "Mentés XML-be";
+            this.btnSaveXML.UseVisualStyleBackColor = true;
+            this.btnSaveXML.Click += new System.EventHandler(this.btnSaveXML_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnSaveXML);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.dataGridView1);
@@ -83,6 +95,7 @@ namespace DJT601_IRF_GY07
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnSaveXML;
     }
 }
 
