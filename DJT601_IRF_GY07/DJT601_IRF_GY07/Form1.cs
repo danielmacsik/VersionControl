@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,11 @@ namespace DJT601_IRF_GY07
     public partial class Form1 : Form
     {
         PortfolioEntities context = new PortfolioEntities();
+
         List<Tick> Ticks;
+        List<decimal> nyereségekRendezve;
+
+
 
         List<PortfolioItem> Portfolio = new List<PortfolioItem>();
 
@@ -39,11 +44,12 @@ namespace DJT601_IRF_GY07
                 Console.WriteLine(i + " " + ny);
             }
 
-            var nyereségekRendezve = (from x in Nyereségek
+             nyereségekRendezve = (from x in Nyereségek
                                       orderby x
                                       select x)
                                         .ToList();
             MessageBox.Show(nyereségekRendezve[nyereségekRendezve.Count() / 5].ToString());
+            
 
 
         }
@@ -69,6 +75,38 @@ namespace DJT601_IRF_GY07
                 value += (decimal)last.Price * item.Volume;
             }
             return value;
+        }
+        private void SaveFile() 
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.InitialDirectory = Application.StartupPath;
+            sfd.Filter = "Comma Seperated Values (*.csv|*.csv";
+            sfd.DefaultExt = "csv";
+            sfd.AddExtension = true;
+
+            if (sfd.ShowDialog() != DialogResult.OK) return;
+
+            using (StreamWriter sw = new StreamWriter(sfd.FileName, false, Encoding.UTF8))
+            {
+                sw.Write("Időszak");
+                sw.Write(";");
+                sw.Write("Nyereség");
+                sw.WriteLine();
+                int index = 1;
+                foreach (var nyereség in nyereségekRendezve)
+                {
+                    sw.Write(index);
+                    sw.Write(";");
+                    sw.Write(nyereség);
+                    sw.WriteLine();
+                    index++;
+                }
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            SaveFile();
         }
     }
 }
