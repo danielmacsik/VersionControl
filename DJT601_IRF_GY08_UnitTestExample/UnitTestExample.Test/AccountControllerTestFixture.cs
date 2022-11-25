@@ -53,7 +53,7 @@ namespace UnitTestExample.Test
             var actualResult = accountController.ValidatePassword(password);
 
             //ide kéne valamit varázsolni regex-el
-            Regex regex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$");
+            Regex regex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$");
             if (regex.IsMatch(password) == true)
             {
                 // Assert
