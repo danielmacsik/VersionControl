@@ -30,5 +30,46 @@ namespace UnitTestExample.Test
             Assert.AreEqual(expectedResult, actualResult);
 
         }
+
+        [
+            Test,
+            TestCase("AbcdeFgH", false),
+            TestCase("ABCDEFGH123", false),
+            TestCase("abcdefgh123", false),
+            TestCase("Abcd123", false),
+            TestCase("AbcDeFGH12345K",true)
+        ]
+        public void TestValidatePassword(string password, bool expectedResult) 
+        {
+            // Arrange
+            var accountController = new AccountController();
+
+            // Act
+            var actualResult = accountController.ValidatePassword(password);
+
+           //ide kéne valamit varázsolni regex-el
+
+            // Assert
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+
+        [
+            Test,
+            TestCase("irf@uni-corvinus.hu", "Abcd1234"),
+            TestCase("irf@uni-corvinus.hu", "Abcd1234567"),
+        ]   
+        public void TestRegisterHappyPath(string email, string password)
+        {
+            // Arrange
+            var accountController = new AccountController();
+
+            // Act
+            var actualResult = accountController.Register(email, password);
+
+            // Assert
+            Assert.AreEqual(email, actualResult.Email);
+            Assert.AreEqual(password, actualResult.Password);
+            Assert.AreNotEqual(Guid.Empty, actualResult.ID);
+        }
     }
 }
