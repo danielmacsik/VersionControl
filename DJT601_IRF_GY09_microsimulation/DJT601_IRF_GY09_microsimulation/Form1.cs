@@ -24,14 +24,21 @@ namespace DJT601_IRF_GY09_microsimulation
             Population = GetPopulation(@"C:\Temp\nép.csv");
             BirthProbabilities = GetBirthProbabilities(@"C:\Temp\születés.csv");
             DeathProbabilities = GetDeathProbabilities(@"C:\Temp\halál.csv");
+            
+        }
 
-            for (int year = 2005; year <= 2024; year++)
+        private void Simulation()
+        {
+            for (int year = 2005; year <= numericUpDown1.Value; year++)
             {
                 // Végigmegyünk az összes személyen
                 for (int i = 0; i < Population.Count; i++)
                 {
                     // Ide jön a szimulációs lépés
                     SimStep(year, Population[i]);
+                   
+                    //string popmsg = string.Format("{0}",Population[i].IsAlive);
+                    //appendOutput(popmsg);
                 }
                 //population i-re rákérdezni
 
@@ -41,9 +48,17 @@ namespace DJT601_IRF_GY09_microsimulation
                 int nbrOfFemales = (from x in Population
                                     where x.Gender == Gender.Female && x.IsAlive
                                     select x).Count();
-                Console.WriteLine(
-                    string.Format("Év:{0} Fiúk:{1} Lányok:{2}", year, nbrOfMales, nbrOfFemales));
+                string msg = string.Format("Év:{0} Fiúk:{1} Lányok:{2}", year, nbrOfMales, nbrOfFemales);
+                appendOutput(msg);
+
+                //Console.WriteLine(
+                //string.Format("Év:{0} Fiúk:{1} Lányok:{2}", year, nbrOfMales, nbrOfFemales));
             }
+        }
+
+        private void appendOutput(String msg)
+        {
+            richTextBox1.AppendText(msg + "\r\n");
         }
 
         private void SimStep(int year, Person person)
@@ -134,6 +149,14 @@ namespace DJT601_IRF_GY09_microsimulation
             return deathProbabilities;
         }
 
-
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Text = null;
+            Population = null;
+            BirthProbabilities = null;
+            DeathProbabilities = null;
+            Simulation();
+            
+        }
     }
 }
