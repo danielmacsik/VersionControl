@@ -151,10 +151,7 @@ namespace DJT601_IRF_GY09_microsimulation
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            richTextBox1.Text = null;
-            Population = null;
-            BirthProbabilities = null;
-            DeathProbabilities = null;
+            
             Simulation();
             
         }
