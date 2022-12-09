@@ -20,6 +20,7 @@ namespace DJT601_IRF_GY10_EvolAlg
         int nbrOfSteps = 10;
         int nbrOfStepsIncrement = 10;
         int generation = 1;
+        Brain winnerBrain = null;
         public Form1()
         {
             InitializeComponent();
@@ -71,6 +72,25 @@ namespace DJT601_IRF_GY10_EvolAlg
             }
             gc.Start();
 
+            var winners = from p in topPerformers
+                          where p.IsWinner
+                          select p;
+            if (winners.Count() > 0)
+            {
+                winnerBrain = winners.FirstOrDefault().Brain.Clone();
+                gc.GameOver -= Gc_GameOver;
+                return;
+            }
+
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            gc.ResetCurrentLevel();
+            gc.AddPlayer(winnerBrain.Clone());
+            gc.AddPlayer();
+            ga.Focus();
+            gc.Start(true);
         }
     }
 }
