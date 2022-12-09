@@ -21,6 +21,8 @@ namespace DJT601_IRF_GY10_EvolAlg
 
             ga = gc.ActivateDisplay();
             this.Controls.Add(ga);
+            gc.AddPlayer();
+            gc.Start(true);
         }
     }
 }
