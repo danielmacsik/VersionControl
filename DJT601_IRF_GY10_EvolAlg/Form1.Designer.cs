@@ -36,7 +36,7 @@ namespace DJT601_IRF_GY10_EvolAlg
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 13);
+            this.label1.Location = new System.Drawing.Point(31, 283);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 0;
@@ -44,7 +44,7 @@ namespace DJT601_IRF_GY10_EvolAlg
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(13, 364);
+            this.btnStart.Location = new System.Drawing.Point(94, 278);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 23);
             this.btnStart.TabIndex = 1;

@@ -51,11 +51,22 @@ namespace DJT601_IRF_GY10_EvolAlg
             label1.Text = string.Format(
                 "{0}. generáció",
                 generation);
+            
             var playerList = from p in gc.GetCurrentPlayers()
                              orderby p.GetFitness() descending
                              select p;
             var topPerformers = playerList.Take(populationSize / 2).ToList();
             
+            var winners = from p in topPerformers
+                          where p.IsWinner
+                          select p;
+            if (winners.Count() > 0)
+            {
+                winnerBrain = winners.FirstOrDefault().Brain.Clone();
+                gc.GameOver -= Gc_GameOver;
+                return;
+            }
+
             gc.ResetCurrentLevel();
             foreach (var p in topPerformers)
             {
@@ -71,16 +82,6 @@ namespace DJT601_IRF_GY10_EvolAlg
                     gc.AddPlayer(b.Mutate());
             }
             gc.Start();
-
-            var winners = from p in topPerformers
-                          where p.IsWinner
-                          select p;
-            if (winners.Count() > 0)
-            {
-                winnerBrain = winners.FirstOrDefault().Brain.Clone();
-                gc.GameOver -= Gc_GameOver;
-                return;
-            }
 
         }
 
